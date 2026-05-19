@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: game-operator
+  namespace: gaming
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: game-operator
+  template:
+    metadata:
+      labels:
+        app: game-operator
+    spec:
+      serviceAccountName: game-operator
+      containers:
+        - name: manager
+          image: ghcr.io/belchiorg/game-operator:latest
+          resources:
+            requests:
+              cpu: 10m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 128Mi
