@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emulationstation
+  namespace: gaming
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: emulationstation
+  template:
+    metadata:
+      labels:
+        app: emulationstation
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: belchior-pi
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        supplementalGroups: [44, 46, 992, 996]  # video, plugdev, render, input
+      containers:
+        - name: emulationstation
+          image: ghcr.io/belchiorg/emulationstation:latest
+          imagePullPolicy: Always
+          env:
+            - name: DISPLAY
+              value: ":0"
+            - name: XAUTHORITY
+              value: /tmp/.Xauthority
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+            limits:
+              cpu: "3500m"
+              memory: "2Gi"
+          volumeMounts:
+            - name: x11-socket
+              mountPath: /tmp/.X11-unix
+            - name: xauthority
+              mountPath: /tmp/.Xauthority
+            - name: config
+              mountPath: /config
+            - name: roms
+              mountPath: /roms
+            - name: dri
+              mountPath: /dev/dri
+            - name: input
+              mountPath: /dev/input
+      volumes:
+        - name: x11-socket
+          hostPath:
+            path: /tmp/.X11-unix
+            type: Directory
+        - name: xauthority
+          hostPath:
+            path: /home/belchior/.Xauthority
+            type: File
+        - name: config
+          hostPath:
+            path: /mnt/data/es-config
+            type: Directory
+        - name: roms
+          hostPath:
+            path: /mnt/data/roms
+            type: Directory
+        - name: dri
+          hostPath:
+            path: /dev/dri
+            type: Directory
+        - name: input
+          hostPath:
+            path: /dev/input
+            type: Directory
