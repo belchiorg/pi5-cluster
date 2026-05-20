@@ -24,8 +24,12 @@ spec:
           image: ghcr.io/belchiorg/emulationstation:latest
           imagePullPolicy: Always
           env:
-            - name: DISPLAY
-              value: ":0"
+            - name: WAYLAND_DISPLAY
+              value: wayland-0
+            - name: XDG_RUNTIME_DIR
+              value: /tmp/wayland-runtime
+            - name: SDL_VIDEODRIVER
+              value: wayland
           resources:
             requests:
               cpu: "500m"
@@ -34,8 +38,8 @@ spec:
               cpu: "3500m"
               memory: "2Gi"
           volumeMounts:
-            - name: x11-socket
-              mountPath: /tmp/.X11-unix
+            - name: wayland-socket
+              mountPath: /tmp/wayland-runtime/wayland-0
             - name: config
               mountPath: /config
             - name: roms
@@ -45,10 +49,10 @@ spec:
             - name: input
               mountPath: /dev/input
       volumes:
-        - name: x11-socket
+        - name: wayland-socket
           hostPath:
-            path: /tmp/.X11-unix
-            type: Directory
+            path: /run/user/1000/wayland-0
+            type: Socket
         - name: config
           hostPath:
             path: /mnt/data/es-config
