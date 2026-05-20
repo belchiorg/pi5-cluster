@@ -32,6 +32,10 @@ spec:
               value: wayland
             - name: EGL_PLATFORM
               value: wayland
+            - name: MESA_LOADER_DRIVER_OVERRIDE
+              value: v3d
+            - name: MESA_DEBUG
+              value: "1"
           securityContext:
             privileged: true
           resources:
