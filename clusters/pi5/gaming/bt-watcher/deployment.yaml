@@ -15,6 +15,9 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/hostname: belchior-pi
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
       containers:
         - name: bt-watcher
           image: ghcr.io/belchiorg/bt-watcher:latest
