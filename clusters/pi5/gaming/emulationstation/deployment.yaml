@@ -26,8 +26,6 @@ spec:
           env:
             - name: DISPLAY
               value: ":0"
-            - name: XAUTHORITY
-              value: /tmp/.Xauthority
           resources:
             requests:
               cpu: "500m"
@@ -38,8 +36,6 @@ spec:
           volumeMounts:
             - name: x11-socket
               mountPath: /tmp/.X11-unix
-            - name: xauthority
-              mountPath: /tmp/.Xauthority
             - name: config
               mountPath: /config
             - name: roms
@@ -53,10 +49,6 @@ spec:
           hostPath:
             path: /tmp/.X11-unix
             type: Directory
-        - name: xauthority
-          hostPath:
-            path: /home/belchior/.Xauthority
-            type: File
         - name: config
           hostPath:
             path: /mnt/data/es-config
