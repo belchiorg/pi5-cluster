@@ -58,8 +58,6 @@ spec:
               mountPath: /dev/dri
             - name: input
               mountPath: /dev/input
-            - name: bios
-              mountPath: /bios
       volumes:
         - name: xdg-runtime
           hostPath:
@@ -85,7 +83,3 @@ spec:
           hostPath:
             path: /dev/input
             type: Directory
-        - name: bios
-          hostPath:
-            path: /mnt/data/bios
-            type: DirectoryOrCreate
