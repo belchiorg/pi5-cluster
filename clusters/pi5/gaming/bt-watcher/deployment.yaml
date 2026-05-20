@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bt-watcher
+  namespace: gaming
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bt-watcher
+  template:
+    metadata:
+      labels:
+        app: bt-watcher
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: belchior-pi
+      containers:
+        - name: bt-watcher
+          image: ghcr.io/belchiorg/bt-watcher:latest
+          imagePullPolicy: Always
+          env:
+            - name: BT_DEVICE_NAMES
+              value: "DualSense Wireless Controller,DualSense Edge Wireless Controller"
+            - name: LISTEN_ADDR
+              value: ":8080"
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "16Mi"
+            limits:
+              cpu: "100m"
+              memory: "32Mi"
+          volumeMounts:
+            - name: dbus
+              mountPath: /run/dbus/system_bus_socket
+      volumes:
+        - name: dbus
+          hostPath:
+            path: /run/dbus/system_bus_socket
+            type: Socket

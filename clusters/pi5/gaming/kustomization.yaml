@@ -4,3 +4,4 @@ resources:
   - rclone-config-sealed.yaml
   - operator/
   - emulationstation/
+  - bt-watcher/

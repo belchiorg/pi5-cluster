@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bt-watcher
+  namespace: gaming
+spec:
+  selector:
+    app: bt-watcher
+  ports:
+    - port: 8080
+      targetPort: 8080
