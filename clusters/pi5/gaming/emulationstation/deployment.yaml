@@ -30,6 +30,8 @@ spec:
               value: /run/user/1000
             - name: SDL_VIDEODRIVER
               value: wayland
+            - name: EGL_PLATFORM
+              value: wayland
           securityContext:
             privileged: true
           resources:
