@@ -27,7 +27,7 @@ spec:
             - name: WAYLAND_DISPLAY
               value: wayland-0
             - name: XDG_RUNTIME_DIR
-              value: /tmp/wayland-runtime
+              value: /run/user/1000
             - name: SDL_VIDEODRIVER
               value: wayland
           resources:
@@ -38,8 +38,10 @@ spec:
               cpu: "3500m"
               memory: "2Gi"
           volumeMounts:
-            - name: wayland-socket
-              mountPath: /tmp/wayland-runtime/wayland-0
+            - name: xdg-runtime
+              mountPath: /run/user/1000
+            - name: snd
+              mountPath: /dev/snd
             - name: config
               mountPath: /config
             - name: roms
@@ -49,10 +51,14 @@ spec:
             - name: input
               mountPath: /dev/input
       volumes:
-        - name: wayland-socket
+        - name: xdg-runtime
           hostPath:
-            path: /run/user/1000/wayland-0
-            type: Socket
+            path: /run/user/1000
+            type: Directory
+        - name: snd
+          hostPath:
+            path: /dev/snd
+            type: Directory
         - name: config
           hostPath:
             path: /mnt/data/es-config
