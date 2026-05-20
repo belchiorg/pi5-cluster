@@ -30,6 +30,8 @@ spec:
               value: /run/user/1000
             - name: SDL_VIDEODRIVER
               value: wayland
+          securityContext:
+            privileged: true
           resources:
             requests:
               cpu: "500m"
