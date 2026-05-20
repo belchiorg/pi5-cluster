@@ -24,6 +24,8 @@ spec:
               value: "DualSense Wireless Controller,DualSense Edge Wireless Controller"
             - name: LISTEN_ADDR
               value: ":8080"
+            - name: DBUS_SYSTEM_BUS_ADDRESS
+              value: "unix:path=/run/dbus/system_bus_socket"
           ports:
             - containerPort: 8080
           livenessProbe:
