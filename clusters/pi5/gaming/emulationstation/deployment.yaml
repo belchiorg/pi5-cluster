@@ -58,6 +58,8 @@ spec:
               mountPath: /dev/dri
             - name: input
               mountPath: /dev/input
+            - name: pcsx2
+              mountPath: /opt/pcsx2
       volumes:
         - name: xdg-runtime
           hostPath:
@@ -82,4 +84,8 @@ spec:
         - name: input
           hostPath:
             path: /dev/input
+            type: Directory
+        - name: pcsx2
+          hostPath:
+            path: /opt/pcsx2
             type: Directory
