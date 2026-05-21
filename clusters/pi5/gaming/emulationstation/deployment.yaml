@@ -26,6 +26,8 @@ spec:
           imagePullPolicy: Always
           securityContext:
             privileged: true
+            runAsUser: 0
+            runAsGroup: 0
           env:
             - name: WAYLAND_DISPLAY
               value: wayland-0
