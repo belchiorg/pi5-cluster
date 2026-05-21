@@ -7,6 +7,7 @@ data:
   pcsx2-qt: |
     #!/bin/sh
     export LD_LIBRARY_PATH=/opt/pcsx2/lib:$LD_LIBRARY_PATH
+    export LIBGL_DRIVERS_PATH=/opt/pcsx2/lib/dri
     export MESA_LOADER_DRIVER_OVERRIDE=zink
     export VK_ICD_FILENAMES=/opt/pcsx2/broadcom_icd.json
     exec /opt/pcsx2/bin/pcsx2-qt "$@"
