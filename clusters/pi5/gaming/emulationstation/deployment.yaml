@@ -36,6 +36,8 @@ spec:
               value: v3d
             - name: MESA_DEBUG
               value: "1"
+            - name: QT_QPA_PLATFORM
+              value: wayland
           securityContext:
             privileged: true
           resources:
