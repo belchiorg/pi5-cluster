@@ -60,6 +60,8 @@ spec:
               mountPath: /dev/input
             - name: pcsx2
               mountPath: /opt/pcsx2
+            - name: bios
+              mountPath: /bios
       volumes:
         - name: xdg-runtime
           hostPath:
@@ -88,4 +90,8 @@ spec:
         - name: pcsx2
           hostPath:
             path: /opt/pcsx2
+            type: Directory
+        - name: bios
+          hostPath:
+            path: /mnt/data/bios
             type: Directory
