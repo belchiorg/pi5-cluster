@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pcsx2-wrapper
+  namespace: gaming
+data:
+  pcsx2-qt: |
+    #!/bin/sh
+    export LD_LIBRARY_PATH=/opt/pcsx2/lib:$LD_LIBRARY_PATH
+    export MESA_LOADER_DRIVER_OVERRIDE=zink
+    exec /opt/pcsx2/bin/pcsx2-qt "$@"

@@ -23,6 +23,8 @@ spec:
         - name: emulationstation
           image: ghcr.io/belchiorg/emulationstation:latest
           imagePullPolicy: Always
+          securityContext:
+            privileged: true
           env:
             - name: WAYLAND_DISPLAY
               value: wayland-0
@@ -34,12 +36,8 @@ spec:
               value: wayland
             - name: MESA_LOADER_DRIVER_OVERRIDE
               value: v3d
-            - name: MESA_DEBUG
-              value: "1"
             - name: QT_QPA_PLATFORM
               value: wayland
-          securityContext:
-            privileged: true
           resources:
             requests:
               cpu: "500m"
@@ -64,6 +62,11 @@ spec:
               mountPath: /opt/pcsx2
             - name: bios
               mountPath: /bios
+            - name: dshm
+              mountPath: /dev/shm
+            - name: pcsx2-wrapper
+              mountPath: /usr/local/bin/pcsx2-qt
+              subPath: pcsx2-qt
       volumes:
         - name: xdg-runtime
           hostPath:
@@ -97,3 +100,11 @@ spec:
           hostPath:
             path: /mnt/data/bios
             type: Directory
+        - name: dshm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 512Mi
+        - name: pcsx2-wrapper
+          configMap:
+            name: pcsx2-wrapper
+            defaultMode: 0755
