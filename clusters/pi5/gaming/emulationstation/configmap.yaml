@@ -6,4 +6,4 @@ metadata:
 data:
   pcsx2-qt: |
     #!/bin/sh
-    exec nsenter --mount=/proc/1/ns/mnt -- /opt/pcsx2/pcsx2-host-run.sh "$@"
+    exec nsenter --mount=/proc/1/ns/mnt --uts=/proc/1/ns/uts -- /opt/pcsx2/pcsx2-host-run.sh "$@"
