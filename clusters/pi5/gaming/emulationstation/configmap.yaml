@@ -6,9 +6,4 @@ metadata:
 data:
   pcsx2-qt: |
     #!/bin/sh
-    export LD_LIBRARY_PATH=/opt/pcsx2/lib:$LD_LIBRARY_PATH
-    export LIBGL_DRIVERS_PATH=/opt/pcsx2/lib/dri
-    export __EGL_VENDOR_LIBRARY_DIRS=/opt/pcsx2/lib/egl
-    export MESA_LOADER_DRIVER_OVERRIDE=zink
-    export VK_ICD_FILENAMES=/opt/pcsx2/broadcom_icd.json
-    exec /opt/pcsx2/bin/pcsx2-qt "$@"
+    exec nsenter --mount=/proc/1/ns/mnt -- /opt/pcsx2/pcsx2-host-run.sh "$@"

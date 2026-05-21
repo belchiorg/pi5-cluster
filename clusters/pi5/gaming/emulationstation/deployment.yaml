@@ -13,6 +13,7 @@ spec:
       labels:
         app: emulationstation
     spec:
+      hostPID: true
       nodeSelector:
         kubernetes.io/hostname: belchior-pi
       securityContext:
